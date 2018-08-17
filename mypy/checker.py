@@ -1887,8 +1887,8 @@ class TypeChecker(NodeVisitor[None], CheckerPluginInterface):
             rvalues = rvalue.items
 
             if self.check_rvalue_count_in_assignment(lvalues, len(rvalues), context):
-                star_index = next((i for i, lv in enumerate(lvalues) if
-                                   isinstance(lv, StarExpr)), len(lvalues))
+                star_index = next(iter(i for i, lv in enumerate(lvalues) if
+                                       isinstance(lv, StarExpr)), len(lvalues))
 
                 left_lvs = lvalues[:star_index]
                 star_lv = cast(StarExpr,
@@ -2029,8 +2029,8 @@ class TypeChecker(NodeVisitor[None], CheckerPluginInterface):
                                           undefined_rvalue: bool,
                                           infer_lvalue_type: bool = True) -> None:
         if self.check_rvalue_count_in_assignment(lvalues, len(rvalue_type.items), context):
-            star_index = next((i for i, lv in enumerate(lvalues)
-                               if isinstance(lv, StarExpr)), len(lvalues))
+            star_index = next(iter(i for i, lv in enumerate(lvalues)
+                                   if isinstance(lv, StarExpr)), len(lvalues))
 
             left_lvs = lvalues[:star_index]
             star_lv = cast(StarExpr, lvalues[star_index]) if star_index != len(lvalues) else None
@@ -2068,8 +2068,8 @@ class TypeChecker(NodeVisitor[None], CheckerPluginInterface):
                 self.check_assignment(lv, self.temp_node(rv_type, context), infer_lvalue_type)
 
     def lvalue_type_for_inference(self, lvalues: List[Lvalue], rvalue_type: TupleType) -> Type:
-        star_index = next((i for i, lv in enumerate(lvalues)
-                           if isinstance(lv, StarExpr)), len(lvalues))
+        star_index = next(iter(i for i, lv in enumerate(lvalues)
+                               if isinstance(lv, StarExpr)), len(lvalues))
         left_lvs = lvalues[:star_index]
         star_lv = cast(StarExpr, lvalues[star_index]) if star_index != len(lvalues) else None
         right_lvs = lvalues[star_index + 1:]

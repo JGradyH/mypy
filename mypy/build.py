@@ -75,6 +75,8 @@ PYTHON_EXTENSIONS = ['.pyi', '.py']
 
 Graph = Dict[str, 'State']
 
+FALSE = False  # false but mypy doesn't know that
+
 
 # TODO: Get rid of BuildResult.  We might as well return a BuildManager.
 class BuildResult:
